@@ -7,9 +7,10 @@
 
         <!--Application Colors-->
         <Color x:Key="Background">#081c24</Color>
+        <Color x:Key="FontColor">#01d277</Color>
 
 
-<!-- Application resource dictionary -->
+        <!-- Application resource dictionary -->
 
 	</Application.Resources>
 </prism:PrismApplication>

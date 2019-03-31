@@ -1,5 +1,7 @@
 ﻿using Prism;
 using Prism.Ioc;
+using Standard.Infrastructure;
+using Standard.Repositories;
 using TheMovieDB.ViewModels;
 using TheMovieDB.Views;
 using Xamarin.Forms;
@@ -30,9 +32,16 @@ namespace TheMovieDB
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            //Registering Views vs ViewModels
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<MovieListPage, MovieListPageViewModel>();
+
+
+
+            //Registering Repositories
+            containerRegistry.Register(typeof(IMovieRepository), typeof(MovieRepository));
+
         }
     }
 }

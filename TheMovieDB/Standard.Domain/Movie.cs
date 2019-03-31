@@ -31,6 +31,18 @@ namespace Standard.Domain
         public string title { get; set; }
         public bool video { get; set; }
         public double vote_average { get; set; }
-        public int vote_count { get; set; }
+        public int vote_count { get ; set; }
+
+
+        public virtual string ImageUrl
+        {
+            get
+            {
+                return "https://image.tmdb.org/t/p/w500" + poster_path;
+            }
+
+        }
+       
+        
     }
 }

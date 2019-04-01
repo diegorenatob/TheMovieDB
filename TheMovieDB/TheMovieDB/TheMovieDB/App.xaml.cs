@@ -42,6 +42,7 @@ namespace TheMovieDB
             //Registering Repositories
             containerRegistry.Register(typeof(IMovieRepository), typeof(MovieRepository));
 
+            containerRegistry.RegisterForNavigation<MoviePage, MoviePageViewModel>();
         }
     }
 }

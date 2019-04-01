@@ -14,7 +14,7 @@ namespace Standard.Infrastructure
 
         public async Task<MovieList> GetMovies(int page, string language)
         {
-            var url = "https://api.themoviedb.org/3/movie/upcoming?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US&page=1";
+            var url = "https://api.themoviedb.org/3/movie/upcoming?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US&page="+page;
            var jsonResult = await GetClient.GetData(url);
            if(!string.IsNullOrEmpty(jsonResult))
            {

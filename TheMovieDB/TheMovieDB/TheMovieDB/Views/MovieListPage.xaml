@@ -5,6 +5,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
              x:Class="TheMovieDB.Views.MovieListPage"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
              x:Name="this">
 
     <AbsoluteLayout BackgroundColor="{StaticResource Background}">
@@ -34,10 +35,14 @@
 
                 <!--List of movies-->
                 <ScrollView Grid.Row="2">
-
+                            
                     <ListView x:Name="ListViewMovies"    SeparatorVisibility="Default" HasUnevenRows="true" RowHeight="90"
+                              CachingStrategy="RecycleElement"
                           ItemsSource="{Binding BindingContext.MovieResumeList , Source={x:Reference this}}" 
                           BackgroundColor="AliceBlue" >
+                        <ListView.Behaviors>
+                            <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+                        </ListView.Behaviors>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell >
@@ -64,7 +69,7 @@
                                                     <RowDefinition Height="35"/>
                                                     <RowDefinition Height="70"/>
                                                 </Grid.RowDefinitions>
-                                                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding title}"  HorizontalTextAlignment="Start" VerticalTextAlignment="Start" VerticalOptions="FillAndExpand" FontAttributes="Bold" FontSize="Medium"/>
+                                                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding title}"  HorizontalTextAlignment="Start" VerticalTextAlignment="End" VerticalOptions="FillAndExpand" FontAttributes="Bold" FontSize="Medium"/>
                                                 <Label Grid.Row="1" Grid.Column="0"  Text="Genres"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
                                                 <Label Grid.Row="1" Grid.Column="1"  Text="{Binding genres}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontSize="Small"></Label>
                                                 <Label Grid.Row="1" Grid.Column="2" Text="Release Date" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
@@ -73,10 +78,21 @@
 
                                         </Grid>
                                     </StackLayout>
-                                    <!--<ImageCell ImageSource="{Binding Image}" Text="{Binding Text}"/>-->
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
+                        <ListView.Footer>
+                            <Grid Padding="6" IsVisible="{Binding IsBusy}">
+                                <!-- set the footer to have a zero height when invisible -->
+                                <Grid.Triggers>
+                                    <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                        <Setter Property="HeightRequest" Value="25" />
+                                    </Trigger>
+                                </Grid.Triggers>
+                                <!-- the loading content -->
+                                <Label Text="Loading..." TextColor="{StaticResource FontColor}" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" />
+                            </Grid>
+                        </ListView.Footer>
                     </ListView>
 
                 </ScrollView>

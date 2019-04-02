@@ -34,7 +34,6 @@ namespace TheMovieDB
         {
             //Registering Views vs ViewModels
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<MovieListPage, MovieListPageViewModel>();
 
 

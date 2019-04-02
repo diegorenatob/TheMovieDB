@@ -68,15 +68,25 @@ namespace TheMovieDB.ViewModels
 
         private async void LoadMovie()
         {
-            Movie = await _movieRepository.GetMovie(MovieID, "en-US");
-
-            foreach (Genre genre in Movie.genres)
+            try
             {
-                Genres = Genres + genre.name + "\n";
+                Movie = await _movieRepository.GetMovie(MovieID, "en-US");
+
+                foreach (Genre genre in Movie.genres)
+                {
+                    Genres = Genres + genre.name + "\n";
+                }
+
+                if (!string.IsNullOrEmpty(Genres))
+                    Genres = Genres.Substring(0, Genres.Length - 1);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                await DialogService.DisplayAlertAsync("Error", e.Message, "Ok");
+
             }
 
-            if (!string.IsNullOrEmpty(Genres))
-                Genres = Genres.Substring(0, Genres.Length - 1);
         }
 #endregion
 

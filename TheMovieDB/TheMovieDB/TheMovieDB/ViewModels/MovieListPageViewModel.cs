@@ -93,7 +93,7 @@ namespace TheMovieDB.ViewModels
                         Console.WriteLine(e);
                         throw;
                     }
-                   
+
                 },
                 OnCanLoadMore = () =>
                 {
@@ -113,66 +113,94 @@ namespace TheMovieDB.ViewModels
 
         private async void LoadMovies(string language)
         {
-            MovieResumeList.Clear();
-            if (string.IsNullOrEmpty(Search))
+            try
             {
-                var moviesList = await _movieRepository.GetMovies(1, language);
-                Pages = moviesList.total_pages;
-                if (moviesList.movies != null)
+                MovieResumeList.Clear();
+                if (string.IsNullOrEmpty(Search))
                 {
-                    InfiniteScrollCollection<MovieResume> result =
-                        new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
-                    MovieResumeList.AddRange(result);
+                    var moviesList = await _movieRepository.GetMovies(1, language);
+                    Pages = moviesList.total_pages;
+                    if (moviesList.movies != null)
+                    {
+                        InfiniteScrollCollection<MovieResume> result =
+                            new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
+                        MovieResumeList.AddRange(result);
+                    }
+                }
+                else
+                {
+                    var moviesList = await _movieRepository.SearchMovies(Search, 1, language);
+                    Pages = moviesList.total_pages;
+                    if (moviesList.movies != null)
+                    {
+                        InfiniteScrollCollection<MovieResume> result =
+                            new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
+                        MovieResumeList.AddRange(result);
+                    }
                 }
             }
-            else
+            catch (Exception e)
             {
-                var moviesList = await _movieRepository.SearchMovies(Search, 1, language);
-                Pages = moviesList.total_pages;
-                if (moviesList.movies != null)
-                {
-                    InfiniteScrollCollection<MovieResume> result =
-                        new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
-                    MovieResumeList.AddRange(result);
-                }
+                Console.WriteLine(e);
+               await  DialogService.DisplayAlertAsync("Error",e.Message, "Ok");
             }
+
         }
 
         public async Task<InfiniteScrollCollection<MovieResume>> LoadMoreMovies(int page, string language)
         {
-            if (string.IsNullOrEmpty(Search))
+            try
             {
-
-                var moviesList = await _movieRepository.GetMovies(page, language);
-                if (moviesList.movies != null)
+                if (string.IsNullOrEmpty(Search))
                 {
-                    InfiniteScrollCollection<MovieResume> result =
-                        new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
-                    return result;
+
+                    var moviesList = await _movieRepository.GetMovies(page, language);
+                    if (moviesList.movies != null)
+                    {
+                        InfiniteScrollCollection<MovieResume> result =
+                            new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
+                        return result;
+                    }
                 }
+                else
+                {
+                    var moviesList = await _movieRepository.SearchMovies(Search, page, language);
+                    Pages = moviesList.total_pages;
+                    if (moviesList.movies != null)
+                    {
+                        InfiniteScrollCollection<MovieResume> result =
+                            new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
+                        return result;
+                    }
+                }
+
             }
-            else
+            catch (Exception e)
             {
-                var moviesList = await _movieRepository.SearchMovies(Search, page, language);
-                Pages = moviesList.total_pages;
-                if (moviesList.movies != null)
-                {
-                    InfiniteScrollCollection<MovieResume> result =
-                        new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
-                    return result;
-                }
-            }
+                Console.WriteLine(e);
+                await DialogService.DisplayAlertAsync("Error", e.Message, "Ok");
 
+            }
             return null;
+
         }
 
         private async void MovieTapped(object Movie)
         {
-            if (Movie == null) return;
-            var mov = Movie as MovieResume;
-            var navigationParams = new NavigationParameters();
-            if (mov != null) navigationParams.Add("ID", mov.id);
-            await _navigationService.NavigateAsync("MoviePage", navigationParams);
+            try
+            {
+                if (Movie == null) return;
+                var mov = Movie as MovieResume;
+                var navigationParams = new NavigationParameters();
+                if (mov != null) navigationParams.Add("ID", mov.id);
+                await _navigationService.NavigateAsync("MoviePage", navigationParams);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                await DialogService.DisplayAlertAsync("Error", e.Message, "Ok");
+            }
+           
 
 
         }

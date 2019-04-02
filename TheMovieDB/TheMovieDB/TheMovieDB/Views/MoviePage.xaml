@@ -14,7 +14,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45"/>
                     <RowDefinition Height="5*"/>
-                    <RowDefinition Height="*"/>
+                    <!--<RowDefinition Height="*"/>-->
                 </Grid.RowDefinitions>
 
                 <!--Title-->
@@ -62,7 +62,7 @@
 
                             </Grid>
                             <Label Grid.Row="2" Grid.Column="0"  Text="Overview"  HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="Medium"></Label>
-                            <Label  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"   Text="{Binding Movie.overview}"/>
+                            <Label  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"   Text="{Binding Movie.overview}" HorizontalTextAlignment="Start"/>
 
 
                         </Grid>

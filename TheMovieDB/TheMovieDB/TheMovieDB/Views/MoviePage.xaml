@@ -5,7 +5,6 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="TheMovieDB.Views.MoviePage"
              NavigationPage.HasNavigationBar="False"
-             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              x:Name="this">
     <AbsoluteLayout BackgroundColor="{StaticResource Background}">
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -17,11 +16,13 @@
                     <!--<RowDefinition Height="*"/>-->
                 </Grid.RowDefinitions>
 
-                <!--Title-->
+                <!--Custom Navigation-->
                 <StackLayout Grid.Row="0" Orientation="Horizontal">
                     <ImageButton Source="leftarrow.png" HeightRequest="45"  BackgroundColor="Transparent"   Command="{Binding GobackCommand}"/>
                     <Label Text="Back"  TextColor="{StaticResource FontColor}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="Medium"/>
                 </StackLayout>
+
+                <!--Movie Layout-->
                 <ScrollView Grid.Row="1" Orientation="Vertical">
                     <StackLayout  Orientation="Vertical"  VerticalOptions="FillAndExpand" BackgroundColor="AliceBlue" >
 
@@ -64,7 +65,7 @@
                             <Label Grid.Row="2" Grid.Column="0"  Text="Overview"  HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="Medium"></Label>
                             <Label  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"   Text="{Binding Movie.overview}" HorizontalTextAlignment="Start"/>
 
-
+                            <!--TBD Similar Movies-->
                         </Grid>
 
                     </StackLayout>

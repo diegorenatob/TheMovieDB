@@ -28,6 +28,7 @@
                 <!--SearchBar-->
                 <StackLayout Grid.Row="1" BackgroundColor="AntiqueWhite">
                     <SearchBar x:Name="searchBar" 
+                               Placeholder="Search Movies ex: Spiderman"
                            Text="{Binding Search}"
                            HorizontalOptions="FillAndExpand"/>
                 </StackLayout>

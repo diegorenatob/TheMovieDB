@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Standard.Infrastructure
+﻿namespace Standard.Infrastructure
 {
      class LoadConfigSingleton
     {

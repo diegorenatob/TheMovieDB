@@ -9,30 +9,30 @@ using Standard.Repositories;
 
 namespace Standard.Infrastructure
 {
-    public class MovieRepository: IMovieRepository
+    public class MovieRepository : IMovieRepository
     {
 
         public async Task<MovieList> GetMovies(int page, string language)
         {
-            var url = "https://api.themoviedb.org/3/movie/upcoming?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US&page="+page;
-           var jsonResult = await GetClient.GetData(url);
-           if(!string.IsNullOrEmpty(jsonResult))
-           {
-               MovieList result;
-               result = JsonConvert.DeserializeObject<MovieList>(jsonResult);
-               return result;
+            var url = LoadConfigSingleton.GetLoadConfigSingleton().URL + "movie/upcoming?api_key=" + LoadConfigSingleton.GetLoadConfigSingleton().APIKey + "&language=" + language + "&page=" + page;
+            var jsonResult = await GetClient.GetData(url);
+            if (!string.IsNullOrEmpty(jsonResult))
+            {
+                MovieList result;
+                result = JsonConvert.DeserializeObject<MovieList>(jsonResult);
+                return result;
             }
-           else
-           {
-               return null;
-           }
+            else
+            {
+                return null;
+            }
 
-           
+
         }
 
         public async Task<Movie> GetMovie(int id, string language)
         {
-            var url = "https://api.themoviedb.org/3/movie/"+id+ "?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US";
+            var url = LoadConfigSingleton.GetLoadConfigSingleton().URL + "movie/" + id + "?api_key=" + LoadConfigSingleton.GetLoadConfigSingleton().APIKey + "&language=" + language;
             var jsonResult = await GetClient.GetData(url);
             if (!string.IsNullOrEmpty(jsonResult))
             {
@@ -48,9 +48,9 @@ namespace Standard.Infrastructure
 
         }
 
-        public async Task<MovieList> GetSimilarMovies(int id,string language)
+        public async Task<MovieList> GetSimilarMovies(int id, string language)
         {
-            var url = "https://api.themoviedb.org/3/movie/400157/similar?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US&page=1";
+            var url = LoadConfigSingleton.GetLoadConfigSingleton().URL + "movie/400157/similar?api_key=" + id + "&language=" + language + "&page=1";
             var jsonResult = await GetClient.GetData(url);
             if (!string.IsNullOrEmpty(jsonResult))
             {
@@ -67,9 +67,9 @@ namespace Standard.Infrastructure
         }
 
 
-        public async Task<MovieList> SearchMovies(string search, int page ,string language)
+        public async Task<MovieList> SearchMovies(string search, int page, string language)
         {
-            var url = "https://api.themoviedb.org/3/search/movie?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US&query=matrix&page=1&include_adult=false";
+            var url = LoadConfigSingleton.GetLoadConfigSingleton().URL + "search/movie?api_key=" + LoadConfigSingleton.GetLoadConfigSingleton().APIKey + "&language=" + language + "&query=" + search + "&page=" + page + "&include_adult=false";
             var jsonResult = await GetClient.GetData(url);
             if (!string.IsNullOrEmpty(jsonResult))
             {

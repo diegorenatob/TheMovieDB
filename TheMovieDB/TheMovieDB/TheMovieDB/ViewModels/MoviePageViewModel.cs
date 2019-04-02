@@ -10,8 +10,9 @@ using Standard.Repositories;
 
 namespace TheMovieDB.ViewModels
 {
-	public class MoviePageViewModel : ViewModelBase
+    public class MoviePageViewModel : ViewModelBase
     {
+        #region properties
         public int MovieID;
 
         private Movie _movie;
@@ -33,22 +34,35 @@ namespace TheMovieDB.ViewModels
         private IMovieRepository _movieRepository;
         private INavigationService _navigationService;
 
+        #endregion
 
-
+        #region ctor
         public MoviePageViewModel(INavigationService navigationService, IPageDialogService dialogService, IMovieRepository movieRepository)
             : base(navigationService, dialogService)
         {
             _movieRepository = movieRepository;
             _navigationService = navigationService;
             GobackCommand = new DelegateCommand(Goback);
- 
-           
+
+
+
+        }
+        #endregion
+
+        #region methods
+        private async void Goback()
+        {
+            await _navigationService.GoBackAsync();
 
         }
 
-        private async void Goback()
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
-          await  _navigationService.GoBackAsync();
+            var id = parameters.GetValue<string>($"ID");
+            MovieID = Convert.ToInt32(id);
+            Movie = new Movie();
+            LoadMovie();
 
         }
 
@@ -58,22 +72,13 @@ namespace TheMovieDB.ViewModels
 
             foreach (Genre genre in Movie.genres)
             {
-                Genres = Genres + genre.name+"\n";
+                Genres = Genres + genre.name + "\n";
             }
 
             if (!string.IsNullOrEmpty(Genres))
-                Genres= Genres.Substring(0, Genres.Length - 1);
+                Genres = Genres.Substring(0, Genres.Length - 1);
         }
-
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            var id=  parameters.GetValue<string>($"ID");
-            MovieID = Convert.ToInt32(id);
-            Movie = new Movie();
-            LoadMovie();
-
-        }
+#endregion
 
 
     }

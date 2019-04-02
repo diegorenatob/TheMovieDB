@@ -28,8 +28,7 @@
                 <!--SearchBar-->
                 <StackLayout Grid.Row="1" BackgroundColor="AntiqueWhite">
                     <SearchBar x:Name="searchBar" 
-                           TextChanged="searchBar_TextChanged"                               
-                           SearchButtonPressed="SearchBar_SearchButtonPressed"  
+                           Text="{Binding Search}"
                            HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
 

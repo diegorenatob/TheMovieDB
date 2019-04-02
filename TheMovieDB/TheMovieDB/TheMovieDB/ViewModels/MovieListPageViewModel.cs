@@ -32,6 +32,19 @@ namespace TheMovieDB.ViewModels
             }
         }
 
+        private string _search;
+        public string Search
+        {
+            get { return _search; }
+            set
+            {
+                SetProperty(ref _search, value);
+                LoadMovies("en-US");
+            }
+        }
+
+
+
         private int Pages;
         private const int PageSize = 20;
 
@@ -54,7 +67,7 @@ namespace TheMovieDB.ViewModels
         #endregion
 
         #region Ctor
-        public MovieListPageViewModel(INavigationService navigationService, IPageDialogService dialogService, IMovieRepository movieRepository) 
+        public MovieListPageViewModel(INavigationService navigationService, IPageDialogService dialogService, IMovieRepository movieRepository)
             : base(navigationService, dialogService)
         {
             _movieRepository = movieRepository;
@@ -62,16 +75,25 @@ namespace TheMovieDB.ViewModels
             {
                 OnLoadMore = async () =>
                 {
-                    IsBusy = true;
-                    int page;
+                    try
+                    {
+                        IsBusy = true;
+                        int page;
 
-                    page = MovieResumeList.Count / PageSize;
+                        page = MovieResumeList.Count / PageSize;
 
-                    var items = await LoadMoreMovies(page,"en-US" ); 
-                    IsBusy = false;
+                        var items = await LoadMoreMovies(page, "en-US");
+                        IsBusy = false;
 
-                    // return the items that need to be added
-                    return items;
+                        // return the items that need to be added
+                        return items;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
+                   
                 },
                 OnCanLoadMore = () =>
                 {
@@ -80,7 +102,7 @@ namespace TheMovieDB.ViewModels
             };
             _navigationService = navigationService;
             LoadMovies("en-US");
-            MovieTappedCommand=new Command<object>(MovieTapped);
+            MovieTappedCommand = new Command<object>(MovieTapped);
 
 
         }
@@ -91,24 +113,54 @@ namespace TheMovieDB.ViewModels
 
         private async void LoadMovies(string language)
         {
-            var moviesList = await _movieRepository.GetMovies(1, language);
-            Pages = moviesList.total_pages;
-            if (moviesList.movies != null)
+            MovieResumeList.Clear();
+            if (string.IsNullOrEmpty(Search))
             {
-                InfiniteScrollCollection<MovieResume> result =
-                    new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
-                MovieResumeList.AddRange(result);
+                var moviesList = await _movieRepository.GetMovies(1, language);
+                Pages = moviesList.total_pages;
+                if (moviesList.movies != null)
+                {
+                    InfiniteScrollCollection<MovieResume> result =
+                        new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
+                    MovieResumeList.AddRange(result);
+                }
+            }
+            else
+            {
+                var moviesList = await _movieRepository.SearchMovies(Search, 1, language);
+                Pages = moviesList.total_pages;
+                if (moviesList.movies != null)
+                {
+                    InfiniteScrollCollection<MovieResume> result =
+                        new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
+                    MovieResumeList.AddRange(result);
+                }
             }
         }
 
-        public async Task<InfiniteScrollCollection<MovieResume>> LoadMoreMovies(int page,string language)
+        public async Task<InfiniteScrollCollection<MovieResume>> LoadMoreMovies(int page, string language)
         {
-            var moviesList = await _movieRepository.GetMovies(page, language);
-            if (moviesList.movies != null)
+            if (string.IsNullOrEmpty(Search))
             {
-                InfiniteScrollCollection<MovieResume> result =
-                    new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
-                return result;
+
+                var moviesList = await _movieRepository.GetMovies(page, language);
+                if (moviesList.movies != null)
+                {
+                    InfiniteScrollCollection<MovieResume> result =
+                        new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
+                    return result;
+                }
+            }
+            else
+            {
+                var moviesList = await _movieRepository.SearchMovies(Search, page, language);
+                Pages = moviesList.total_pages;
+                if (moviesList.movies != null)
+                {
+                    InfiniteScrollCollection<MovieResume> result =
+                        new InfiniteScrollCollection<MovieResume>(moviesList.movies as List<MovieResume>);
+                    return result;
+                }
             }
 
             return null;
@@ -120,9 +172,9 @@ namespace TheMovieDB.ViewModels
             var mov = Movie as MovieResume;
             var navigationParams = new NavigationParameters();
             if (mov != null) navigationParams.Add("ID", mov.id);
-           await _navigationService.NavigateAsync("MoviePage",navigationParams);
+            await _navigationService.NavigateAsync("MoviePage", navigationParams);
 
-          
+
         }
 
 

@@ -20,7 +20,7 @@ namespace Standard.Domain
         public string backdrop_path { get; set; }
         public bool adult { get; set; }
         public string overview { get; set; }
-        public DateTime release_date { get; set; }
+        public DateTime? release_date { get; set; }
 
         public virtual string ImageUrl => "https://image.tmdb.org/t/p/w500" + poster_path;
 

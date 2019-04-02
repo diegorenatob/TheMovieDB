@@ -205,7 +205,7 @@
     <BundleResource Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\left-arrow.png" />
+    <Content Include="Resources\leftarrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -32,7 +32,7 @@ namespace Standard.Infrastructure
 
         public async Task<Movie> GetMovie(int id, string language)
         {
-            var url = "https://api.themoviedb.org/3/movie/400157?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US";
+            var url = "https://api.themoviedb.org/3/movie/"+id+ "?api_key=1f54bd990f1cdfb230adb312546d765d&language=en-US";
             var jsonResult = await GetClient.GetData(url);
             if (!string.IsNullOrEmpty(jsonResult))
             {

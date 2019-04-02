@@ -6,6 +6,7 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="TheMovieDB.Views.MovieListPage"
              xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              x:Name="this">
 
     <AbsoluteLayout BackgroundColor="{StaticResource Background}">
@@ -41,6 +42,9 @@
                           ItemsSource="{Binding BindingContext.MovieResumeList , Source={x:Reference this}}" 
                           BackgroundColor="AliceBlue" >
                         <ListView.Behaviors>
+                            <behaviors:EventToCommandBehavior EventName="ItemTapped" 
+                                                      Command="{Binding MovieTappedCommand}"
+                                                      EventArgsParameterPath="Item" />
                             <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
                         </ListView.Behaviors>
                         <ListView.ItemTemplate>
@@ -73,7 +77,7 @@
                                                 <Label Grid.Row="1" Grid.Column="0"  Text="Genres"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
                                                 <Label Grid.Row="1" Grid.Column="1"  Text="{Binding genres}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontSize="Small"></Label>
                                                 <Label Grid.Row="1" Grid.Column="2" Text="Release Date" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold"></Label>
-                                                <Label Grid.Row="1" Grid.Column="3"  Text="{Binding release_date}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontSize="Small"></Label>
+                                                <Label Grid.Row="1" Grid.Column="3"  Text="{Binding release_date, StringFormat='\{0:MM-dd-yyyy}'}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontSize="Small"></Label>
                                             </Grid>
 
                                         </Grid>

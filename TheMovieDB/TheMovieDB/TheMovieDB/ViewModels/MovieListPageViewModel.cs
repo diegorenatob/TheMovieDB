@@ -11,6 +11,7 @@ using Prism.Navigation;
 using Prism.Services;
 using Standard.Domain;
 using Standard.Repositories;
+using Xamarin.Forms;
 using Xamarin.Forms.Extended;
 
 namespace TheMovieDB.ViewModels
@@ -18,6 +19,8 @@ namespace TheMovieDB.ViewModels
     public class MovieListPageViewModel : ViewModelBase
     {
         #region Properties
+
+        public Command<object> MovieTappedCommand { get; set; }
 
         private InfiniteScrollCollection<MovieResume> _movieResumeList;
         public InfiniteScrollCollection<MovieResume> MovieResumeList
@@ -45,6 +48,7 @@ namespace TheMovieDB.ViewModels
         }
 
         private IMovieRepository _movieRepository;
+        private INavigationService _navigationService;
 
 
         #endregion
@@ -74,10 +78,16 @@ namespace TheMovieDB.ViewModels
                     return (MovieResumeList.Count / PageSize < Pages);
                 }
             };
+            _navigationService = navigationService;
             LoadMovies("en-US");
+            MovieTappedCommand=new Command<object>(MovieTapped);
 
 
         }
+
+        #endregion
+
+        #region methods
 
         private async void LoadMovies(string language)
         {
@@ -91,10 +101,6 @@ namespace TheMovieDB.ViewModels
             }
         }
 
-        #endregion
-
-        #region methods
-
         public async Task<InfiniteScrollCollection<MovieResume>> LoadMoreMovies(int page,string language)
         {
             var moviesList = await _movieRepository.GetMovies(page, language);
@@ -107,6 +113,18 @@ namespace TheMovieDB.ViewModels
 
             return null;
         }
+
+        private async void MovieTapped(object Movie)
+        {
+            if (Movie == null) return;
+            var mov = Movie as MovieResume;
+            var navigationParams = new NavigationParameters();
+            if (mov != null) navigationParams.Add("ID", mov.id);
+           await _navigationService.NavigateAsync("MoviePage",navigationParams);
+
+          
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

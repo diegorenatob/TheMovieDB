@@ -22,7 +22,7 @@ namespace Standard.Domain
         public string poster_path { get; set; }
         public List<ProductionCompany> production_companies { get; set; }
         public List<ProductionCountry> production_countries { get; set; }
-        public string release_date { get; set; }
+        public DateTime release_date { get; set; }
         public int revenue { get; set; }
         public int runtime { get; set; }
         public List<SpokenLanguage> spoken_languages { get; set; }
@@ -34,15 +34,9 @@ namespace Standard.Domain
         public int vote_count { get ; set; }
 
 
-        public virtual string ImageUrl
-        {
-            get
-            {
-                return "https://image.tmdb.org/t/p/w500" + poster_path;
-            }
+        public virtual string ImageUrl => "https://image.tmdb.org/t/p/w500" + poster_path;
 
-        }
        
-        
+
     }
 }

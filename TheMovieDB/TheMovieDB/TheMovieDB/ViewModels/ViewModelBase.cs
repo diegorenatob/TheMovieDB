@@ -12,6 +12,8 @@ namespace TheMovieDB.ViewModels
     {
         protected INavigationService NavigationService { get; private set; }
         protected IPageDialogService DialogService { get; private set; }
+        protected INavigationParameters navigationParameters { get; private set; }
+
 
 
         private string _title;
@@ -25,6 +27,12 @@ namespace TheMovieDB.ViewModels
         {
             NavigationService = navigationService;
             DialogService = dialogService;
+        }
+        public ViewModelBase(INavigationService navigationService, IPageDialogService dialogService,INavigationParameters parameters)
+        {
+            NavigationService = navigationService;
+            DialogService = dialogService;
+            navigationParameters = parameters;
         }
 
         public ViewModelBase(INavigationService navigationService)

@@ -104,7 +104,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="left-arrow.png" />
+    <Content Include="leftarrow.png" />
     <Content Include="Logo.png" />
     <Content Include="Logo.svg" />
     <Content Include="Properties\Default.rd.xml">

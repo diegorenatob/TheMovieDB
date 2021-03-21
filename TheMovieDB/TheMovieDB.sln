@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheMovieDB", "TheMovieDB\TheMovieDB\TheMovieDB.csproj", "{E540F931-5539-4C36-9B51-D061DB71CCBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheMovieDB", "TheMovieDB\TheMovieDB\TheMovieDB.csproj", "{E540F931-5539-4C36-9B51-D061DB71CCBB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheMovieDB.Android", "TheMovieDB\TheMovieDB.Android\TheMovieDB.Android.csproj", "{93D97A9B-7213-4E33-9C5E-1C35A194592C}"
 EndProject
@@ -17,13 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{6C8BE30E-3484-46EA-8B6B-14DF80CCF204}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standard.Domain", "Standard.Domain\Standard.Domain.csproj", "{D941A379-72B3-47E9-9A33-C047FF93353D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.Domain", "Standard.Domain\Standard.Domain.csproj", "{D941A379-72B3-47E9-9A33-C047FF93353D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standard.Repositories", "Standard.Repositories\Standard.Repositories.csproj", "{682C36F8-B44B-4EDE-8808-4E4639B7AD5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.Repositories", "Standard.Repositories\Standard.Repositories.csproj", "{682C36F8-B44B-4EDE-8808-4E4639B7AD5E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{80C8A7A1-0655-4A66-919E-DEED5045BE6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standard.Infrastructure", "Standard.Infrastructure\Standard.Infrastructure.csproj", "{F787EBEB-2592-4537-85D6-99043524F06D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.Infrastructure", "Standard.Infrastructure\Standard.Infrastructure.csproj", "{F787EBEB-2592-4537-85D6-99043524F06D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

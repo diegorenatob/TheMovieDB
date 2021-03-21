@@ -6,7 +6,7 @@
              x:Class="TheMovieDB.Views.MoviePage"
              NavigationPage.HasNavigationBar="False"
              x:Name="this">
-    <AbsoluteLayout BackgroundColor="{StaticResource Background}">
+    <AbsoluteLayout BackgroundColor="{StaticResource Background}" Padding="5">
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All">
             <Grid>
@@ -26,7 +26,7 @@
                 <ScrollView Grid.Row="1" Orientation="Vertical">
                     <StackLayout  Orientation="Vertical"  VerticalOptions="FillAndExpand" BackgroundColor="AliceBlue" >
 
-                        <Grid >
+                        <Grid  Padding="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>

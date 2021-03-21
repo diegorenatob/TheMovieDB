@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using Prism;
 using Prism.Ioc;
 
@@ -11,6 +12,8 @@ namespace TheMovieDB.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 

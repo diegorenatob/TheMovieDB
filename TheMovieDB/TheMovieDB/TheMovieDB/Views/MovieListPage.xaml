@@ -9,7 +9,7 @@
              xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              x:Name="this">
 
-    <AbsoluteLayout BackgroundColor="{StaticResource Background}">
+    <AbsoluteLayout BackgroundColor="{StaticResource Background}" Padding="5">
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All">
             <Grid>
@@ -50,7 +50,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell >
-                                    <StackLayout Orientation="Vertical"  VerticalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Vertical"  VerticalOptions="FillAndExpand" Padding="5">
 
                                         <Grid >
                                             <Grid.ColumnDefinitions>
